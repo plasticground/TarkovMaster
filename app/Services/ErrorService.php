@@ -23,11 +23,11 @@ class ErrorService
     {
         $timestamp = date('Y-m-d (h:i:s)', time());
         $date = date('Y-m-d', time());
-        $filename = self::LOG_DIR . $date . '.log';
+        $filename = self::LOG_DIR . $date;
         $class = $class ?? ('in class [' . get_class($class) . ']');
 
         $data = "{$timestamp}: {$error} {$class}";
 
-        file_put_contents($filename, $data, FILE_APPEND);
+        LogService::log(LogService::LOG_FILE_APPEND, $data, $filename);
     }
 }

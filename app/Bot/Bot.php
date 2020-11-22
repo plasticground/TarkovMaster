@@ -141,6 +141,9 @@ class Bot extends Methods
 
     public function actionMsg($chatId, $message)
     {
+        if ($message[0] === '/') {
+            
+        }
         switch ($message) {
             case 'hi':
                 $this->sendMessage($chatId, 'Hello');
@@ -150,5 +153,10 @@ class Bot extends Methods
                 $this->sendMessage($chatId, 'what?');
                 break;
         }
+    }
+
+    public function actionCmd()
+    {
+        
     }
 }

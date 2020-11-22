@@ -33,10 +33,11 @@ class DatabaseService
 
     /**
      * Database constructor
+     * @param string $databaseType
      */
-    public function __construct__()
+    public function __construct(string $databaseType = 'mysql')
     {
-        $db = ConfigService::database('mysql');
+        $this->db = $db = ConfigService::database($databaseType);
 
         $this->dsn = $dsn = self::getDSN($db);
         $this->user = $user = self::getUser($db);
@@ -45,11 +46,16 @@ class DatabaseService
         $this->pdo = new PDO($dsn, $user, $password, $options);
     }
 
+    public function getPDO()
+    {
+        return $this->pdo;
+    }
+
     /**
      * @param $db
      * @return string
      */
-    private static function getDSN($db)
+    private function getDSN($db)
     {
         switch ($db['type']) {
             case 'mysql':
