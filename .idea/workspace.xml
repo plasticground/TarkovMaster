@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f8ad5d6-97ed-4e94-ae8f-d21ac9ae39fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Services/DatabaseService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/.gitignore" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,17 +34,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/storage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\WEB\plasticground\projects\TarkovMaster\storage" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\WEB\plasticground\projects\TarkovMaster\app\Bot" />
       <recent name="D:\WEB\plasticground\projects\TarkovMaster" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WEB\plasticground\projects\TarkovMaster\config" />
+      <recent name="D:\WEB\plasticground\projects\TarkovMaster\storage" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -61,7 +64,9 @@
       <workItem from="1605513833657" duration="13000" />
       <workItem from="1605718569083" duration="14347000" />
       <workItem from="1605828633497" duration="6752000" />
-      <workItem from="1605917469273" duration="10535000" />
+      <workItem from="1605917469273" duration="11763000" />
+      <workItem from="1605971311779" duration="8000" />
+      <workItem from="1606014460307" duration="1604000" />
     </task>
     <servers />
   </component>
@@ -73,10 +78,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="666" y="310" key="#Log_Highlighting_(ideolog)/0.0.1920.1080@0.0.1920.1080" timestamp="1605753901404" />
-    <state x="734" y="341" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605211792981">
+    <state x="734" y="341" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606014945113">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="734" y="341" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1605211792981" />
+    <state x="734" y="341" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1606014945113" />
     <state x="690" y="294" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605748460846">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -85,13 +90,17 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="724" y="262" key="NewPhpClassDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1605296363906" />
-    <state x="794" y="463" key="NewPhpFileDialog" timestamp="1605833588075">
+    <state x="794" y="463" key="NewPhpFileDialog" timestamp="1606014725553">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="794" y="463" key="NewPhpFileDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1605833588075" />
-    <state x="461" y="184" key="SettingsEditor" timestamp="1605317052740">
+    <state x="794" y="463" key="NewPhpFileDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1606014725553" />
+    <state x="461" y="184" key="SettingsEditor" timestamp="1606015628737">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="461" y="184" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1605317052740" />
+    <state x="461" y="184" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1606015628737" />
+    <state x="616" y="192" width="672" height="676" key="search.everywhere.popup" timestamp="1606014999599">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="616" y="192" width="672" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1606014999599" />
   </component>
 </project>

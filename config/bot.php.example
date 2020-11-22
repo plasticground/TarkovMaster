@@ -1,0 +1,8 @@
+<?php
+
+class ConfigBot
+{
+    const URL_TELEGRAM_API = 'https://api.telegram.org';
+    const URL_DOMAIN = 'https://your-site.com';
+    const BOT_TOKEN = '123:abc';
+}

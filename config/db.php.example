@@ -5,9 +5,9 @@ class ConfigDb
     const MYSQL = [
         'type' => 'mysql',
         'host' => 'localhost',
-        'dbname' => 'tarkov_master',
+        'dbname' => 'database_name',
         'user' => 'root',
-        'password' => '',
+        'password' => 'rootpass',
         'charset' => 'utf-8',
         'options' => [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

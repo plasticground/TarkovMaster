@@ -12,7 +12,8 @@
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
