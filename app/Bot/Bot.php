@@ -134,29 +134,59 @@ class Bot extends Methods
                 . $message
             ;
             LogService::log(LogService::LOG_FILE_APPEND, $msgLog, 'messages');
+            LogService::log(LogService::LOG_FILE, $message, 'message');
 
-            $this->actionMsg($chatId, $message);
+            if (!empty($message)) {
+                $this->actionMsg($chatId, $message);
+            }
         }
     }
 
     public function actionMsg($chatId, $message)
     {
-        if ($message[0] === '/') {
-            
-        }
-        switch ($message) {
-            case 'hi':
-                $this->sendMessage($chatId, 'Hello');
-                break;
+        $this->sendChatAction($chatId, 'typing');
 
-            default:
-                $this->sendMessage($chatId, 'what?');
-                break;
+        if ($message[0] === '/') {
+            $this->actionCmd($chatId, substr($message, 1));
+        } else {
+            switch ($message) {
+                case 'hi':
+                    $this->sendMessage($chatId, 'Hello');
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
-    public function actionCmd()
+    public function actionCmd($chatId, $cmd)
     {
-        
+        $commands = new Commands();
+        if (preg_match('/@/', $cmd)) {
+            $cmd = stristr($cmd, '@', true);
+        }
+
+        switch ($cmd) {
+            case 'start':
+                $commands->startCommand($chatId);
+                break;
+
+            case 'who':
+                $commands->whoCommand($chatId);
+                break;
+
+            case 'menu':
+                $commands->menuCommand($chatId);
+                break;
+
+            case 'find':
+                $commands->findCommand($chatId);
+                break;
+
+            default:
+                $this->sendMessage($chatId, 'Неизвестная команда');
+                break;
+        }
     }
 }

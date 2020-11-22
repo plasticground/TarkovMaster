@@ -4,7 +4,7 @@ namespace App\Bot;
 
 use App\Services\ConfigService;
 
-abstract class Methods extends Commands
+abstract class Methods
 {
     public function getWebhookInfo()
     {
@@ -33,6 +33,27 @@ abstract class Methods extends Commands
             'chat_id' => $chatId,
             'text' => $text,
             'reply_to_message_id' => $replyToMessageId,
+        ];
+
+        return $this->call(__FUNCTION__, $data);
+    }
+
+    /**
+     * Actions:
+     * typing, upload_photo, record_video,
+     * upload_video, record_voice, upload_voice,
+     * upload_document, find_location, record_video_note,
+     * upload_video_note.
+     *
+     * @param $chatId
+     * @param string $action
+     * @return bool|string
+     */
+    public function sendChatAction($chatId, string $action)
+    {
+        $data = [
+            'chat_id' => $chatId,
+            'action' => $action,
         ];
 
         return $this->call(__FUNCTION__, $data);
