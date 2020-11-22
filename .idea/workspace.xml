@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8f8ad5d6-97ed-4e94-ae8f-d21ac9ae39fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Bot/Bot.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bot/Bot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/DatabaseService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/DatabaseService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/ErrorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ErrorService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
