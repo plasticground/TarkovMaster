@@ -116,13 +116,13 @@ class Database
 
     /**
      * @param string $table    'table_name'
-     * @param array $columns   ['column1', ..., 'columnN'] or ['*'] (or [])
-     * @param string $column   'column_name'
-     * @param string $operator '=' or another operator
+     * @param array $columns   get ['column1', ..., 'columnN'] or ['*'] (or [])
+     * @param string $column   find in 'column_name'
      * @param string $value    'value'
+     * @param string $operator '=' (default) or another operator
      * @return bool
      */
-    public function where(string $table, array $columns, string $column, string $operator, string $value)
+    public function where(string $table, array $columns, string $column, string $value, string $operator = '=')
     {
         $table = strtolower($table);
         $columns = (empty($columns) || $columns[0] === '*') ? '*' : implode(', ', $columns);
