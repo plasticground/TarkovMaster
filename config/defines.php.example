@@ -3,3 +3,8 @@
 define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT'] . '/');
 define("STORAGE_DIR", $_SERVER['DOCUMENT_ROOT'] . '/storage/');
 define("LOGS_DIR", $_SERVER['DOCUMENT_ROOT'] . '/storage/logs/');
+define("RESOURCES_DIR", $_SERVER['DOCUMENT_ROOT'] . '/resources/');
+define("PUBLIC_DIR", $_SERVER['DOCUMENT_ROOT'] . '/public/');
+define("DB_DIR", $_SERVER['DOCUMENT_ROOT'] . '/database/');
+
+define("AUTH_TOKEN", '123abc');

@@ -22,7 +22,9 @@
         "files": [
             "config/bot.php",
             "config/db.php",
-            "config/defines.php"
+            "config/defines.php",
+            "resources/templates/ControllerTemplate.php",
+            "resources/templates/DebugWindowTemplate.php"
         ]
     }
 }
