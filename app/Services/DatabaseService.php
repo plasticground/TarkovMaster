@@ -63,7 +63,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_DNS_NOT_AVAILABLE_FOR_THIS_TYPE, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_DNS_NOT_AVAILABLE_FOR_THIS_TYPE, __CLASS__);
                 $dsn = '';
                 break;
         }
@@ -83,7 +83,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_OPTIONS_NOT_FOUND, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_OPTIONS_NOT_FOUND, __CLASS__);
                 $options = [];
                 break;
         }
@@ -103,7 +103,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_USER_NOT_FOUND, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_USER_NOT_FOUND, __CLASS__);
                 $user = '';
                 break;
         }
@@ -123,7 +123,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_PASSWORD_NOT_FOUND, get_class(self::class));
+                ErrorService::log(ErrorService::ERROR_DB_PASSWORD_NOT_FOUND, get_class(__CLASS__));
                 $user = '';
                 break;
         }

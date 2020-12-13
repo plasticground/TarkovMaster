@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ConfigService;
 use App\Services\DatabaseService;
 
 class Database
@@ -116,6 +117,30 @@ class Database
 
     /**
      * @param string $table    'table_name'
+     * @param array $columns   ['column_name' => 'SQL STATEMENT', ...]
+     * @return mixed
+     */
+    public function alterTable(string $table, array $columns)
+    {
+        $table = strtolower($table);
+        $doStmts = '';
+
+        foreach ($columns as $column => $query) {
+            if (is_string($column)) {
+                $column = strtolower($column);
+            } else {
+                $column= '';
+            }
+
+            $doStmts .= $column . $query . ' ';
+        }
+
+        $stmt = $this->pdo->prepare("ALTER TABLE {$table} {$doStmts}");
+        return $stmt->execute();
+    }
+
+    /**
+     * @param string $table    'table_name'
      * @param array $columns   get ['column1', ..., 'columnN'] or ['*'] (or [])
      * @param string $column   find in 'column_name'
      * @param string $value    'value'
@@ -130,5 +155,22 @@ class Database
 
         $stmt = $this->pdo->query($query);
         return $stmt->fetch();
+    }
+
+    /**
+     * @param string $table 'table_name'
+     * @return mixed
+     */
+    public function isExists(string $table)
+    {
+        $table = strtolower($table);
+        $query = "SELECT COUNT(*) FROM {$table} LIMIT 1";
+
+        try {
+            $stmt = $this->pdo->query($query);
+            return $stmt->fetch();
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 }

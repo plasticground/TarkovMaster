@@ -1,0 +1,160 @@
+#!/usr/bin/env php
+<?php
+
+const COLOR_DEFAULT = "\e[39m";
+const COLOR_CYAN = "\e[36m";
+const COLOR_MAGENTA = "\e[35m";
+const COLOR_GREEN = "\e[32m";
+const COLOR_YELLOW = "\e[33m";
+const COLOR_RED = "\e[31m";
+
+if (!isset($argv[1])) {
+    say([
+        COLOR_MAGENTA . "SLAVE COMMANDS:",
+        COLOR_MAGENTA . "php slave " . COLOR_GREEN . "command " . COLOR_CYAN . "argument",
+        "",
+        COLOR_GREEN . "Commands:",
+        COLOR_GREEN . "\tmake",
+    ]);
+} else {
+    switch ($argv[1]) {
+        case 'make':
+            make($argv);
+            break;
+
+        default:
+            say([
+                COLOR_MAGENTA . "SLAVE COMMANDS:",
+                COLOR_MAGENTA . "php slave " . COLOR_GREEN . "command " . COLOR_CYAN . "argument",
+                "",
+                COLOR_GREEN . "Commands:",
+                COLOR_GREEN . "\tmake",
+            ]);
+            break;
+    }
+}
+
+function say(array $text, bool $brStart = true,  bool $brEnd = true)
+{
+    if ($brStart) {
+        echo PHP_EOL;
+    }
+
+    foreach ($text as $line) {
+        echo $line;
+        if ($brEnd) {
+            echo PHP_EOL;
+        }
+    }
+    echo COLOR_DEFAULT;
+}
+
+function make($argv)
+{
+    if (!isset($argv[2])) {
+        say([
+            COLOR_GREEN . "make " . COLOR_CYAN . "routes " . COLOR_YELLOW . "- generate routes file from views;"
+        ]);
+    } else {
+        switch ($argv[2]) {
+            case 'routes':
+                say([COLOR_YELLOW."[ROUTE GENERATION STARTED]"]);
+                try {
+                    generateRoutes();
+                    say([COLOR_GREEN."[ROUTE GENERATION COMPLETE]"]);
+                } catch (Exception $e) {
+                    say([COLOR_RED . $e->getMessage()]);
+                }
+                break;
+
+            default:
+                say([
+                    COLOR_GREEN . "make " . COLOR_CYAN . "routes " . COLOR_YELLOW . "- generate routes file from views;"
+                ]);
+                break;
+        }
+    }
+}
+
+function generateRoutes()
+{
+    $routesFile = 'routes/web.php';
+    $viewsDir = 'resources/views/';
+    $controllersDir = 'app/Controllers/';
+    say([COLOR_YELLOW."[(1/2) SCAN \"$viewsDir\"]"]);
+    $store = scandir($viewsDir, 1);
+
+    $routes = [];
+
+    if ($store) {
+        $store = array_diff($store, ['.', '..']);
+        foreach ($store as $folder) {
+            if ($views = scandir($viewsDir . $folder . '/'))
+            {
+                $views = array_diff($views, ['.', '..']);
+
+                say([COLOR_CYAN . $folder], false);
+
+                foreach ($views as $view) {
+
+                    say([COLOR_CYAN . ' - ' . $view], false);
+
+                    if (stripos($view, '.php')) {
+
+                        $viewName = stristr($view, '.php', true);
+                        $clearViewName = $viewName === 'index' ? '' : "/{$viewName}";
+
+                        $key = "/{$folder}{$clearViewName}";
+                        $controllerName = strtoupper($folder[0]) . substr($folder, 1) . 'Controller';
+                        $viewController = "{$controllersDir}{$controllerName}.php";
+
+                        if (!file_exists($viewController)) {
+                            say([COLOR_RED . "\"$viewController\" NOT EXIST"]);
+
+                            $view = "{$viewsDir}{$folder}/{$viewName}.php";
+                            generateController($viewController, $view, $controllerName);
+                        }
+
+                        $routes[$key] = $viewController;
+                    }
+                }
+            }
+        }
+    } else {
+        new Exception("[NO SUCH VIEWS IN DIRECTORY]");
+        return;
+    }
+
+    if (file_exists($routesFile)) {
+        file_put_contents($routesFile, '');
+    }
+
+    say([COLOR_YELLOW."[(2/2) WRITE ROUTES FILE \"$routesFile\"]"]);
+    say(['return $routes = [']);
+
+    file_put_contents($routesFile, "<?php\n\nreturn \$routes = [\n", FILE_APPEND);
+
+    foreach ($routes as $name => $route) {
+        file_put_contents($routesFile, "    '{$name}' => '{$route}',\n", FILE_APPEND);
+
+        say(["    '{$name}' => '{$route}',\n"], false, false);
+    }
+
+    file_put_contents($routesFile, "];", FILE_APPEND);
+
+    say(['];'], false);
+}
+
+function generateController(string $controller, string $view, string $controllerName)
+{
+    say([COLOR_YELLOW."[CONTROLLER GENERATION STARTED]"]);
+
+    $data = new \Templates\ControllerTemplate();
+    $data = $data->getData();
+    $data = str_ireplace('~view~', $view, str_ireplace('~controller_name~', $controllerName, $data));
+
+    file_put_contents($controller, $data);
+
+    say([COLOR_CYAN."new $controller"]);
+    say([COLOR_GREEN."[CONTROLLER GENERATION COMPLETE]"]);
+}
