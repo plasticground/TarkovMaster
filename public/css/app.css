@@ -46,7 +46,7 @@ a:visited {text-decoration: none;}
 a:hover {text-decoration: none;}
 
 .menu {
-    font-size: 2em;
+    font-size: 24pt;
     padding-left: 5px;
     border-left: solid 0;
     transition: border-left 0.2s ease-in-out;
@@ -104,20 +104,40 @@ table tr:last-child td:last-child {border-bottom-right-radius: 10px;}
 .bg-error {background: #ff9797;}
 .bg-secondary {background: white;}
 
-.h {
-    color: #5c7efc;
-    margin-left: 1vw;
-    margin-top: 1vh;
-    text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
-    z-index: 0;
+header {
+    background: none;
+    margin-top: -10px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-h1 {font-size: 6vw;}
-h2 {font-size: 5vw;}
-h3 {font-size: 4vw;}
-h4 {font-size: 3vw;}
-h5 {font-size: 2vw;}
-h6 {font-size: 1vw;}
+.h {
+    color: #5c7efc;
+    margin: 10px 0 0 10px;
+    text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+}
+
+h1 {font-size: 72pt;}
+h2 {font-size: 56pt;}
+h3 {font-size: 48pt;}
+h4 {font-size: 32pt;}
+h5 {font-size: 24pt;}
+h6 {font-size: 16pt;}
+
+
+@media (max-width: 768px) {
+    header {
+        background: #40518c;
+        margin-top: -10px;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    h1 {font-size: 48pt;}
+    h2 {font-size: 32pt;}
+}
 
 .btn {
     border-radius: 3px;
@@ -140,19 +160,23 @@ h6 {font-size: 1vw;}
 
 .btn-s {
     height: 30px;
-    width: 70px;
+    padding: 0 5px 0 5px;
 }
 
 .btn-m {
     font-size: medium;
     height: 35px;
-    width: 100px;
+    padding: 0 10px 0 10px;
 }
 
 .btn-l {
     font-size: larger;
     height: 40px;
-    width: 200px;
+    padding: 0 20px 0 20px;
+}
+
+.btn-x-auto {
+    width: 100%;
 }
 
 .btn-main {
@@ -215,6 +239,7 @@ h6 {font-size: 1vw;}
     flex-direction: column;
     height: 100%;
     min-height: 100%;
+    overflow: auto;
 }
 
 .flex-container div {
@@ -240,6 +265,15 @@ h6 {font-size: 1vw;}
     display: -webkit-flex;
     display: flex;
 }
+
+@media (max-width: 768px) {
+    .box {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+}
+
 
 .wrap {
     -webkit-flex-wrap: wrap;
@@ -318,8 +352,23 @@ h6 {font-size: 1vw;}
 .p-t-5 {padding-top: 5em;}
 
 .m-auto {margin: auto;}
+
 .m-x-auto {margin-left: auto; margin-right: auto;}
+.m-x-0 {margin-left: 0; margin-right: 0;}
+.m-x-1 {margin-left: 1em; margin-right: 1em;}
+.m-x-2 {margin-left: 2em; margin-right: 2em;}
+.m-x-3 {margin-left: 3em; margin-right: 3em;}
+.m-x-4 {margin-left: 4em; margin-right: 4em;}
+.m-x-5 {margin-left: 5em; margin-right: 5em;}
+
 .m-y-auto {margin-top: auto; margin-bottom: auto;}
+.m-y-0 {margin-top: 0; margin-bottom: 0;}
+.m-y-1 {margin-top: 1em; margin-bottom: 1em;}
+.m-y-2 {margin-top: 2em; margin-bottom: 2em;}
+.m-y-3 {margin-top: 3em; margin-bottom: 3em;}
+.m-y-4 {margin-top: 4em; margin-bottom: 4em;}
+.m-y-5 {margin-top: 5em; margin-bottom: 5em;}
+
 .m-0 {margin: 0;}
 .m-1 {margin: 1em;}
 .m-2 {margin: 2em;}
@@ -354,3 +403,9 @@ h6 {font-size: 1vw;}
 .w-75 {width: 75%;}
 .w-100 {width: 100%;}
 .mw-100 {min-width: 100%;}
+
+@media (max-width: 768px) {
+    .w-25 {width: 95%;}
+    .w-50 {width: 95%;}
+    .w-75 {width: 95%;}
+}
