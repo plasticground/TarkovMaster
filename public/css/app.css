@@ -41,6 +41,10 @@ a {
     overflow: scroll;
 }
 
+.overflow-visible {
+    overflow: visible;
+}
+
 a:link {text-decoration: none;}
 a:visited {text-decoration: none;}
 a:hover {text-decoration: none;}
@@ -201,17 +205,17 @@ h6 {font-size: 16pt;}
 
 .input-s {
     height: 2em;
-    width: 100%;
+    width: 95%;
 }
 
 .input-m {
     height: 2.5em;
-    width: 100%;
+    width: 95%;
 }
 
 .input-l {
     height: 3em;
-    width: 100%;
+    width: 95%;
 }
 
 .fixed {
