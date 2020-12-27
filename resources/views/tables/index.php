@@ -1,7 +1,7 @@
 <body>
 
 <header>
-    <h1 class="h absolute">Tables</h1>
+    <h1 class="h">Tables</h1>
 </header>
 <div class="flex-container bg-gradient">
     <div class="box  align-items-center flex-row">
@@ -12,8 +12,8 @@
                         <p><a href="/dashboard" class="menu">Dashboard</a></p>
                         <p><a href="/tables" class="menu">Tables</a></p>
                     </div>
-                    <form class="m-x-auto h-auto m-b-1 m-t-1" action="" method="post">
-                        <button name="auth" value="logout" class="btn btn-l btn-main">Logout</button>
+                    <form class="m-x-1 h-auto m-b-1 m-t-1" action="" method="post">
+                        <button name="auth" value="logout" class="btn btn-l btn-main btn-x-auto">Logout</button>
                     </form>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                             </table>
                         </div>
                     </div>
-                    <form class="d-flex justify-content-center align-items-center h-25 border-top" action="" method="post">
-                        <button name="table_create" value="create_all" class="btn btn-l btn-main">Create all</button>
+                    <form class="d-flex justify-content-center align-items-center h-25 border-top m-x-1" action="" method="post">
+                        <button name="table_create" value="create_all" class="btn btn-l btn-main btn-x-auto">Create all</button>
                     </form>
                 </div>
             </div>
