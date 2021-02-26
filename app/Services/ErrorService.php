@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class ErrorService
+class ErrorService extends \Exception
 {
     const LOG_DIR = STORAGE_DIR . 'log/';
 
@@ -19,15 +19,39 @@ class ErrorService
         echo "<p><b style='background: lightcoral'>{$errorName}</b></p>";
     }
 
+    /**
+     * @param $error
+     * @param null $class
+     */
     public static function log($error, $class = null)
     {
         $timestamp = date('Y-m-d (h:i:s)', time());
         $date = date('Y-m-d', time());
-        $filename = self::LOG_DIR . $date . '.log';
+        $filename = $date;
         $class = $class ?? ('in class [' . get_class($class) . ']');
 
         $data = "{$timestamp}: {$error} {$class}";
 
-        file_put_contents($filename, $data, FILE_APPEND);
+        LogService::log(LogService::LOG_FILE_APPEND, $data, $filename);
     }
+
+    /**
+     * ErrorService constructor.
+     * @param string $message
+     * @param int $code
+     * @param \Exception|null $previous
+     */
+    public function __construct($message = "", $code = 0, \Exception $previous = null) {
+
+        parent::__construct($message, $code, $previous);
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    public function getCustomMessage(string $message) {
+        return $message;
+    }
+
 }

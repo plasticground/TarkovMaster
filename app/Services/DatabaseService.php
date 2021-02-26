@@ -33,10 +33,11 @@ class DatabaseService
 
     /**
      * Database constructor
+     * @param string $databaseType
      */
-    public function __construct__()
+    public function __construct(string $databaseType = 'mysql')
     {
-        $db = ConfigService::database('mysql');
+        $this->db = $db = ConfigService::database($databaseType);
 
         $this->dsn = $dsn = self::getDSN($db);
         $this->user = $user = self::getUser($db);
@@ -45,11 +46,16 @@ class DatabaseService
         $this->pdo = new PDO($dsn, $user, $password, $options);
     }
 
+    public function getPDO()
+    {
+        return $this->pdo;
+    }
+
     /**
      * @param $db
      * @return string
      */
-    private static function getDSN($db)
+    private function getDSN($db)
     {
         switch ($db['type']) {
             case 'mysql':
@@ -57,7 +63,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_DNS_NOT_AVAILABLE_FOR_THIS_TYPE, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_DNS_NOT_AVAILABLE_FOR_THIS_TYPE, __CLASS__);
                 $dsn = '';
                 break;
         }
@@ -77,7 +83,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_OPTIONS_NOT_FOUND, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_OPTIONS_NOT_FOUND, __CLASS__);
                 $options = [];
                 break;
         }
@@ -97,7 +103,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_USER_NOT_FOUND, self::class);
+                ErrorService::log(ErrorService::ERROR_DB_USER_NOT_FOUND, __CLASS__);
                 $user = '';
                 break;
         }
@@ -117,7 +123,7 @@ class DatabaseService
                 break;
 
             default:
-                ErrorService::log(ErrorService::ERROR_DB_PASSWORD_NOT_FOUND, get_class(self::class));
+                ErrorService::log(ErrorService::ERROR_DB_PASSWORD_NOT_FOUND, get_class(__CLASS__));
                 $user = '';
                 break;
         }

@@ -4,6 +4,10 @@ namespace App\Bot;
 
 use App\Services\LogService;
 
+/**
+ * Class Bot
+ * @package App\Bot
+ */
 class Bot extends Methods
 {
     /**
@@ -51,6 +55,7 @@ class Bot extends Methods
             );
             return false;
         }
+        return true;
     }
 
     /**
@@ -110,45 +115,151 @@ class Bot extends Methods
 
     /**
      * @param $data
+     * @return bool|void
      */
     public function getUpdate($data)
     {
         if ($data) {
-            $dataCallbackQuery = $data['callback_query'] ?? null;
-            $dataMsg = $data['message'] ?? null;
             LogService::log(LogService::LOG_FILE, $data, 'data');
-            LogService::log(LogService::LOG_FILE, $dataMsg, 'dataM');
-            LogService::log(LogService::LOG_FILE, $dataCallbackQuery, 'dataCQ');
 
-            $message = mb_strtolower($dataMsg['text'] ?: $data['data'], 'utf-8');
-            $chatId = $data['message']['chat']['id'];
+            if (isset($data['callback_query'])) {
+                return $this->callbackUpdate($data);
+            }
 
-            $msgLog = '('
-                . date('Y-m-d H:i:s', $dataMsg['date'])
-                . ') '
-                . 'chat#' . $chatId
-                . ' msg#'  . $dataMsg['message_id']
-                . ' - '
-                . $dataMsg['from']['username']
-                . ': '
-                . $message
-            ;
-            LogService::log(LogService::LOG_FILE_APPEND, $msgLog, 'messages');
+            if (isset($data['message'])) {
+                return $this->messageUpdate($data);
+            }
 
-            $this->actionMsg($chatId, $message);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $data
+     */
+    public function callbackUpdate($data)
+    {
+        $callbackQuery = $data['callback_query'];
+        LogService::log(LogService::LOG_FILE, $callbackQuery, 'dataCQ');
+        $callbackData = $callbackQuery['data'];
+        $chatId = $callbackQuery['message']['chat']['id'];
+        $from = $callbackQuery['from'];
+        $messageId = $callbackQuery['message']['message_id'];
+
+        return $this->actionCallback($chatId, $from, $callbackData, $messageId);
+    }
+
+    /**
+     * @param $data
+     */
+    public function messageUpdate($data)
+    {
+        $message = $data['message'];
+        LogService::log(LogService::LOG_FILE, $message, 'dataM');
+        $text = mb_strtolower($message['text']);
+        $chatId = $message['chat']['id'];
+        $from = $message['from'];
+        $messageId = $message['message_id'];
+
+        return $this->actionMsg($chatId, $from, $text, $messageId);
+    }
+
+    /**
+     * @param $chatId
+     * @param $from
+     * @param $text
+     * @param $messageId
+     * @return void|bool|string
+     */
+    public function actionMsg($chatId, $from, $text, $messageId)
+    {
+        $this->sendChatAction($chatId, 'typing');
+
+        if ($text[0] === '/') {
+            return $this->actionCmd($chatId, $from, substr($text, 1));
+        } else {
+            switch ($text) {
+                case 'hi':
+                    return $this->sendMessage(['chat_id' => $chatId, 'text' => 'Hello']);
+
+                default:
+                    break;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $chatId
+     * @param $from
+     * @param $text
+     * @return bool|string|void
+     */
+    public function actionCmd($chatId, $from, $text)
+    {
+        $commands = new Commands();
+
+        if (stripos($text, '@tarkovmasterbot') !== false) {
+            $text = str_replace('@tarkovmasterbot', '', $text);
+            LogService::log(LogService::LOG_FILE_APPEND, $text, 'data1');
+        }
+
+        $text = explode(' ', $text);
+        $cmd = $text[0];
+        unset($text[0]);
+        $arg = empty($text) ? null : implode(' ', $text);
+
+        switch ($cmd) {
+            case 'start':
+                return $commands->startCommand($chatId);
+
+            case 'who':
+                return $commands->whoCommand($chatId);
+
+            case 'menu':
+                return $commands->menuCommand($chatId);
+
+            case 'find':
+                return $commands->findCommand($chatId, $arg);
+
+            default:
+                return $this->sendMessage(['chat_id' => $chatId, 'text' => 'Неизвестная команда']);
         }
     }
 
-    public function actionMsg($chatId, $message)
+    /**
+     * @param $chatId
+     * @param $from
+     * @param $callbackData
+     * @param $messageId
+     * @return false|void
+     */
+    public function actionCallback($chatId, $from, $callbackData, $messageId)
     {
-        switch ($message) {
-            case 'hi':
-                $this->sendMessage($chatId, 'Hello');
-                break;
+        $menu = new Menu();
+
+        switch ($callbackData) {
+            case 'main':
+                return $menu->main($chatId);
+
+            case 'back_to_main':
+                return $menu->main($chatId, $messageId);
+
+            case 'keys':
+                return $menu->keys($chatId, $messageId);
+
+            case 'keys_location':
+                return $menu->keysLocation($chatId, $messageId);
+
+            case 'ammo':
+                return $menu->ammo($chatId, $messageId);
+
+            case 'items':
+                return $menu->items($chatId, $messageId);
 
             default:
-                $this->sendMessage($chatId, 'what?');
-                break;
+                return false;
         }
     }
 }
