@@ -35,3 +35,27 @@ $RS->start();
 //$debug = new \App\Services\DebugWindow($request);
 //$debug->print();
 
+
+// VALIDATOR //
+
+$query = [
+    'name' => 'KEY 228',
+    'location' => 'Развязка',
+    'description' => '228 ОБЩАГИ',
+    'quest' => 0,
+];
+
+$v = new \App\Models\Validator($query, \App\Rules\TarkovKeysRules::get());
+echo 'query<br><br>';
+d($v->query);
+echo 'rules<br><br>';
+d($v->rules);
+echo 'info<br><br>';
+d($v->info);
+echo 'failed<br><br>';
+d($v->failed);
+echo 'errors<br><br>';
+d($v->errors);
+
+// END VALIDATOR //
+
